@@ -1,4 +1,4 @@
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 
 export default function Hero() {
 	return (
