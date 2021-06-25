@@ -4,9 +4,9 @@ import { FaRegUserCircle } from 'react-icons/all';
 
 export default function Header() {
 	return (
-		<Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed-top>
-			<Container className="justify-content-center" fluid>
-				<Navbar.Brand style={{ fontStyle: 'italic' }}>Hotelist</Navbar.Brand>
+		<Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
+			<Container className="justify-content-between" fluid>
+				<Navbar.Brand className="font-italic">Hotelist</Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse
 					id="responsive-navbar-nav"
