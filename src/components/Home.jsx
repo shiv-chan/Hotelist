@@ -5,8 +5,17 @@ import Hero from './Hero';
 import HotelCard from './HotelCard';
 import { Row, Col } from 'react-bootstrap';
 
+const allData = React.createContext();
+const passedData = React.createContext();
+
+// filter hotels by stars
+function filterByStars(stars, arr) {
+	return arr.filter((item) => item.stars === stars);
+}
+
 export default function Home() {
 	const [data, setData] = useState(null);
+	console.log(`🚀 ~ Home ~ data`, data);
 
 	// fetch fake-hotel api
 	const fetchHotel = async () => {
@@ -28,22 +37,32 @@ export default function Home() {
 		setAllData();
 	}, []);
 
-	console.log(data);
+	// if (data) console.log(filterByStars(5, data).slice(0, 20));
 
-	return (
-		<>
+	return data === null ? (
+		'loading'
+	) : (
+		<allData.Provider value={{ data }}>
 			<Header />
 			<Hero />
 			<div className="m-5">
+				{/* Show Top 20 of 5 stared hotels */}
 				<Row>
-					{Array.from({ length: 10 }).map((_, idx) => (
-						<Col md={6} lg={3} className="mb-5">
-							<HotelCard />
-						</Col>
-					))}
+					{filterByStars(5, data)
+						.slice(0, 20)
+						.map((hotel) => (
+							<passedData.Provider value={{ hotel }}>
+								<Col md={6} lg={3} className="mb-5" key={hotel.id}>
+									<HotelCard />
+								</Col>
+							</passedData.Provider>
+						))}
 				</Row>
 			</div>
 			<Footer />
-		</>
+		</allData.Provider>
 	);
 }
+
+export { allData };
+export { passedData };
