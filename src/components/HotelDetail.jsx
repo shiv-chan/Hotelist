@@ -1,19 +1,28 @@
 import React from 'react'
 
+import { IconContext } from "react-icons"
 import { FaStar } from 'react-icons/fa'
 
-const HotelDetail = () => {
+const HotelDetail = (props) => {
     return (
         <>
-            <h1>Hotel name</h1>
-            <div className="rating-container">
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
+            <div className="info-top-container">
+                <h1 className="mb-0">{props.hotel[0].name}</h1>
+                <p className="mb-0">{props.hotel[0].city}, {props.hotel[0].country}</p>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita accusamus aliquam quae totam voluptates doloremque quisquam ratione nemo magnam fugiat animi eaque laudantium, omnis, deleniti deserunt? Totam, ad. Illo, at.</p>
+            <div className="rating-container mb-3">
+                {[...Array(5)].map((star, index) => {
+                    const iconColor = props.hotel[0].stars >= index ? '#FFD700' : 'rgba(0, 0, 0, .125)'
+
+                    return (
+                        <IconContext.Provider value={{ color: iconColor }}>
+                            <FaStar key={index} />
+                        </IconContext.Provider>
+                    )
+                })}
+            </div>
+            <p>{props.hotel[0].description}</p>
+            <p className="font-weight-bold mb-0">rating: {props.hotel[0].rating.toFixed(2)}</p>
         </>
     )
 }

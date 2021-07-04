@@ -1,21 +1,24 @@
+// import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+// import { passedData } from './Home';
 
-export default function HotelCard() {
+export default function HotelCard(props) {
+	// const { hotel } = useContext(passedData);
 	return (
-		<Card style={{ width: '100%' }}>
-			<Card.Img
-				variant="top"
-				src="https://images.unsplash.com/photo-1586611292717-f828b167408c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
-			/>
-			<Card.Body>
-				<Card.Title>Hotel Name</Card.Title>
-				<Card.Subtitle
-					className="font-weight-light"
-					style={{ fontSize: '0.8em' }}
-				>
-					City, Country
-				</Card.Subtitle>
-			</Card.Body>
+		<Card className="h-100" style={{ width: '100%' }}>
+			<Link to={`/hotel/${props.hotel.id}`}>
+				<Card.Img variant="top" src={props.hotel.images[0]} />
+				<Card.Body>
+					<Card.Title>{props.hotel.name}</Card.Title>
+					<Card.Subtitle
+						className="font-weight-light"
+						style={{ fontSize: '0.8em' }}
+					>
+						{props.hotel.city}, {props.hotel.country}
+					</Card.Subtitle>
+				</Card.Body>
+			</Link>
 		</Card>
 	);
 }
