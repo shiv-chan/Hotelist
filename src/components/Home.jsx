@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import React, { useContext } from 'react';
+import { allData } from './DataProvider';
+
 import Hero from './Hero';
 import HotelCard from './HotelCard';
 import { Row, Col } from 'react-bootstrap';
 
-const allData = React.createContext();
-const passedData = React.createContext();
+// const allData = React.createContext();
+// const passedData = React.createContext();
 
 // filter hotels by stars
 function filterByStars(stars, arr) {
@@ -14,36 +14,47 @@ function filterByStars(stars, arr) {
 }
 
 export default function Home() {
-	const [data, setData] = useState(null);
-	console.log(`🚀 ~ Home ~ data`, data);
+    const { data } = useContext(allData);
 
-	// fetch fake-hotel api
-	const fetchHotel = async () => {
-		return (
-			await fetch('http://fake-hotel-api.herokuapp.com/api/hotels')
-		).json();
-	};
+	// const [data, setData] = useState(null);
+	// console.log(`🚀 ~ Home ~ data`, data);
 
-	// set data
-	const setAllData = () => {
-		try {
-			fetchHotel().then((result) => setData(result));
-		} catch (e) {
-			console.error(`Failed to fetch Hotel API: ${e}`);
-		}
-	};
+	// // fetch fake-hotel api
+	// const fetchHotel = async () => {
+	// 	return (
+	// 		await fetch('http://fake-hotel-api.herokuapp.com/api/hotels')
+	// 	).json();
+	// };
 
-	useEffect(() => {
-		setAllData();
-	}, []);
+	// // set data
+	// const setAllData = async () => {
+	// 	try {
+	// 		const responseGalleryTitle = await fetch(
+	// 		  "http://fake-hotel-api.herokuapp.com/api/hotels"
+	// 		);
+
+	// 		if (responseGalleryTitle.status !== 200)
+	// 		  throw Error(`Oops, error! Error code: ${responseGalleryTitle.status}`);
+	  
+	// 		const galleryTitlesData = await responseGalleryTitle.json();
+
+	// 		setData(galleryTitlesData)
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+
+	// useEffect(() => {
+	// 	setAllData();
+	// 	// console.log('test');
+	// }, []);
 
 	// if (data) console.log(filterByStars(5, data).slice(0, 20));
 
 	return data === null ? (
 		'loading'
 	) : (
-		<allData.Provider value={{ data }}>
-			<Header />
+		<>
 			<Hero />
 			<div className="m-5">
 				{/* Show Top 20 of 5 stared hotels */}
@@ -51,18 +62,15 @@ export default function Home() {
 					{filterByStars(5, data)
 						.slice(0, 20)
 						.map((hotel) => (
-							<passedData.Provider value={{ hotel }}>
-								<Col md={6} lg={3} className="mb-5" key={hotel.id}>
-									<HotelCard />
-								</Col>
-							</passedData.Provider>
+							<Col md={6} lg={3} className="mb-5" key={hotel.id}>
+								<HotelCard hotel={hotel} />
+							</Col>
 						))}
 				</Row>
 			</div>
-			<Footer />
-		</allData.Provider>
+		</>
 	);
 }
 
-export { allData };
-export { passedData };
+// export { allData };
+// export { passedData };

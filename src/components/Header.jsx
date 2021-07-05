@@ -6,7 +6,7 @@ export default function Header() {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
 			<Container className="justify-content-between" fluid>
-				<Navbar.Brand className="font-italic">Hotelist</Navbar.Brand>
+				<Navbar.Brand className="font-italic"><Link to="/">Hotelist</Link></Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse
 					id="responsive-navbar-nav"
