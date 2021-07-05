@@ -1,10 +1,7 @@
-// import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-// import { passedData } from './Home';
 
 export default function HotelCard(props) {
-	// const { hotel } = useContext(passedData);
 	return (
 		<Card className="h-100" style={{ width: '100%' }}>
 			<Link to={`/hotel/${props.hotel.id}`}>
